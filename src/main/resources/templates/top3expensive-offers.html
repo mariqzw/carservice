@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h2 class="font-weight-bold display-4 text-center text-dark mt-5">Top 3 Expensive Offers</h2>
+                <div class="card-deck">
+                    <div th:each="offer : ${top3ExpensiveOffers}" class="card mb-3 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+                        <div class="card-body">
+                            <div class="col-md-6"><img th:src="@{'/images/' + ${offer.imageUrl}}" height="350px"></div>
+                            <p class="card-title" th:text="'Description: ' + ${offer.description}"></p>
+                            <p class="card-text" th:text="'Engine: ' + ${offer.engine}"></p>
+                            <p class="card-text" th:text="'Mileage: ' + ${offer.mileage}"></p>
+                            <p class="card-text" th:text="'Price: $' + ${offer.price}" data-price="${offer.price}"></p>
+                            <p class="card-text" th:text="'Transmission: ' + ${offer.transmission}"></p>
+                            <p class="card-text" th:text="'Year: ' + ${offer.year}"></p>
+                            <p class="card-text" th:text="'Username: ' + ${offer.user.username}"></p>
+                            <p class="card-text" th:text="'Model: ' + ${offer.model.name}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

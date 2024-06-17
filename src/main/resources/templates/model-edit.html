@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"/>
+<body class="d-flex flex-column h-100">
+<div th:replace="fragments/navbar">Navbar</div>
+<main class="flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="jumbotron text-center rounded col-md-8 align-self-center pt-5">
+                <div class="justify-content-center">
+                    <h1>Edit Model</h1>
+                </div>
+                <form th:action="@{/models/edit/{model-name}(model-name=${model.name})}"
+                      th:method="post"
+                      th:object="${model}"
+                      class="m-md-auto w-50 pb-3">
+                    <div class="mb-3">
+                        <label class="form-label" for="brand"><h5>All available brands</h5></label>
+                        <select class="form-control text-center" id="brand" name="name" th:field="*{brand}">
+                            <option th:each="a : ${availableBrands}" th:value="${a.name}" th:text="${a.name}"></option>
+                        </select>
+                        <small th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="text-danger">Error message</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Name</label>
+                        <input th:value="${model.name}"
+                               th:field="*{name}"
+                               th:errorclass="is-invalid"
+                               type="text" class="form-control text-center" id="name"
+                               aria-describedby="nameHelp" name="name"
+                               placeholder="name"
+                        />
+                        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Error message</small>
+                    </div>
+                    <fieldset class="mb-3">
+                        <legend>Choose Category</legend>
+                        <div class="mb-3">
+                            <label class="form-label" for="category">Category</label>
+                            <select th:field="*{category}" class="form-control" id="category" name="category">
+                                <option th:each="cat : ${T(com.example.springdatabasicdemo.enums.Category).values()}"
+                                        th:value="${cat}" th:text="${#strings.capitalize(cat.name())}"></option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('category')}" th:errors="*{category}"
+                                   class="text-danger">Error message</small>
+                        </div>
+                    </fieldset>
+                    <!--          <div class="mb-3">-->
+                    <!--            <label class="form-label" for="imageURL">URL Of Image</label>-->
+                    <!--            <input th:field="*{imageURL}"-->
+                    <!--                   th:errorclass="is-invalid"-->
+                    <!--                   type="text" class="form-control text-center"-->
+                    <!--                   id="imageURL" aria-describedby="imageURL" name="imageURL"/>-->
+                    <!--            <small th:if="${#fields.hasErrors('imageURL')}" th:errors="*{imageURL}" class="text-danger">Error-->
+                    <!--              message</small>-->
+                    <!--          </div>-->
+                    <div class="mb-3">
+                        <label class="form-label" for="start_year">Start Year</label>
+                        <input th:field="*{start_year}"
+                               th:errorclass="is-invalid" type="text" class="form-control text-center"
+                               id="start_year" aria-describedby="start_year" name="start_year"/>
+                        <small th:if="${#fields.hasErrors('start_year')}" th:errors="*{start_year}" class="text-danger">Error
+                            message</small>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="end_year">End Year</label>
+                        <input th:field="*{end_year}"
+                               th:errorclass="is-invalid" type="text" class="form-control text-center"
+                               id="end_year" aria-describedby="end_year" name="end_year"/>
+                        <small th:if="${#fields.hasErrors('end_year')}" th:errors="*{end_year}" class="text-danger">Error
+                            message</small>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Save Model</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>
